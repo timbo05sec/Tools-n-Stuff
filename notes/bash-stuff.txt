@@ -1,0 +1,3 @@
+Count the number of ports open in gnmap file:
+for m in $(cat /usr/share/nmap/nmap-services | grep '\/tcp' | sort -k 3 -n -r | cut -f 2 | sed 's/\/tcp//g'); do echo -n 'Port '$m':'; grep -c "$m\/open\/tcp" ./path-to-file.gnmap; done | head -n 100 | grep -v ':0';
+

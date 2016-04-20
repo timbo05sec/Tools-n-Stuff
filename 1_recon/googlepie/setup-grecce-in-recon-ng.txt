@@ -1,0 +1,17 @@
+
+cp grecce.py ../recon-ng/modules/recon/domains-vulnerabilities/
+cp sites.txt ../recon-ng/data/grecce_sites.txt
+cp extentions.txt ../recon-ng/data/grecce_extentions.txt
+cp bishopfox-google-queries.txt ../recon-ng/data/grecce_bishopfox.txt
+
+echo 'set DEBUG False
+set VERBOSE True
+set USER-AGENT Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:42.0) Gecko/20100101 Firefox/42.0
+use recon/domains-vulnerabilities/grecce
+set SITES data/grecce_sites.txt
+set EXTENTIONS data/grecce_extentions.txt
+set BISHOPFOX data/grecce_bishopfox.txt
+run' > /tmp/grecce.rc
+
+$ python recon-ng -w {CLIENT}
+resource /tmp/grecce.rc
