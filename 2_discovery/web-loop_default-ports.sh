@@ -17,3 +17,5 @@ for m in 443 80
             [ $m = 443 ] && echo 'Q' | openssl s_client -connect $n:443 -state -fallback_scsv -ssl3 &> $(date +%Y%m%d)_openssl_scsvfallback_$n.txt
       done  
 done 
+
+sed -Ei 's/(set target http)s{0,1}(:\/\/.*)/\1:\/\/10.10.10.10:80\//g' ~/Tools-n-Stuff/2_discovery/w3af/w3af_script.w3af
