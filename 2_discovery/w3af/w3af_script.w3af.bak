@@ -48,7 +48,7 @@ infrastructure server_header, server_status, domain_dot, dot_net_errors
 #Configure reporting in order to generate an HTML report
 output console, html_file
 output config html_file
-set output_file ./20160420_w3af_64.132.242.106_80_Report.html
+set output_file ./20160513_w3af_mob.fmcna.com_ssl_Report.html
 set verbose False
 back
 output config console
@@ -57,7 +57,7 @@ back
 back
 #Set target informations, do a cleanup and run the scan
 target 
-set target http://64.132.242.106:80/
+set target https://mob.fmcna.com/
 set target_os windows
 set target_framework php
 back

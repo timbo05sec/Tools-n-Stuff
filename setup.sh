@@ -8,6 +8,8 @@ git clone https://bitbucket.org/al14s/rawr.git /home/admin/downloads/rawr
 
 chown -R admin:admin /home/admin/downloads
 
+~/downloads/rawr/install.sh
+
 cp /home/admin/Tools-n-Stuff/1_recon/googlepie/grecce.py /home/admin/downloads/recon-ng/modules/recon/domains-vulnerabilities/
 cp /home/admin/Tools-n-Stuff/1_recon/googlepie/sites.txt /home/admin/downloads/recon-ng/data/grecce_sites.txt
 cp /home/admin/Tools-n-Stuff/1_recon/googlepie/extentions.txt /home/admin/downloads/recon-ng/data/grecce_extentions.txt
@@ -21,3 +23,5 @@ set SITES data/grecce_sites.txt
 set EXTENTIONS data/grecce_extentions.txt
 set BISHOPFOX data/grecce_bishopfox.txt' > /tmp/grecce.rc
 
+service postgresql start
+msfdb init
