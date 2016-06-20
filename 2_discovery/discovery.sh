@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export DATE=$(date +%Y%m%d)
-sudo masscan -iL ./targets.txt -p T:0-65535 --rate 1000 --banners -oB $DATE\_masscan_targets.bin --interface eth0
+sudo masscan -iL ./targets.txt -p T:0-65535 --rate 500 --banners -oB $DATE\_masscan_targets.bin --interface eth0
 masscan --readscan $DATE\_masscan_targets.bin -oG $DATE\_masscan_results.grep.txt
 
 export PORTS=$(grep -Eo '[0-9]{1,5}\/open' $DATE\_masscan_results.grep.txt | sort -u | sed -r -e ':a;N;$!ba;s/\/open(\n)?/,/g' -e 's/,$//g')

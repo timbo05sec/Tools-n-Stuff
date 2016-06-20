@@ -1,12 +1,8 @@
 #!/bin/bash
 
-for m in $(cat subnet_targets.txt); do (
+for m in $(cat targets.txt); do (
 
      whois $m | tee $(date +%Y%m%d)_whois\_$m.txt
-
-); done;
-
-for m in $(cat targets.txt); do (
 
      host $m | tee -a $(date +%Y%m%d)_host_targets.txt
 
