@@ -9,7 +9,7 @@ git clone https://bitbucket.org/al14s/rawr.git /home/admin/downloads/rawr
 
 chown -R admin:admin /home/admin/downloads
 
-~/downloads/rawr/install.sh
+/home/admin/downloads/rawr/install.sh
 
 cp /home/admin/Tools-n-Stuff/1_recon/googlepie/grecce.py /home/admin/downloads/recon-ng/modules/recon/domains-vulnerabilities/
 cp /home/admin/Tools-n-Stuff/1_recon/googlepie/sites.txt /home/admin/downloads/recon-ng/data/grecce_sites.txt
