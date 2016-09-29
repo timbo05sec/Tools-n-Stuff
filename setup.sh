@@ -30,7 +30,7 @@ if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]:\D{%F-%T}~\$'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w:\D{%F-%T}~\$'
-fi' > ~/.basbrc
+fi' >> ~/.basbrc
 
 echo '# Logs all terminal output
 # Eg. ~/.terminal-logs/2015-06-02_08:15:25.14622.log
@@ -44,7 +44,7 @@ if [ -z "$UNDER_SCRIPT" ]; then
         export UNDER_SCRIPT=$logfile
         script -f -q $logfile
         exit
-fi' > ~/.bash_profile
+fi' >> ~/.bash_profile
 
 service postgresql start
 msfdb init
