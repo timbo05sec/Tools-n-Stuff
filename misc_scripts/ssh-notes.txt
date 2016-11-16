@@ -1,0 +1,4 @@
+
+To tunnel through 2 "hops" of SSH:
+ssh -o "ProxyCommand ssh user@SYSTEM1 -W %h:%p -i ~/.ssh/id_rsa" -D 9050 root@SYSTEM2 -F /dev/null
+Where SYSTEM2 is only accessible through SYSTEM1, and the target network is connected to SYSTEM2
