@@ -1,0 +1,1 @@
+while true; do clear; curl ifconfig.io | tee -a sourceIPs.txt; printf '\n'; if [[ $(curl -k https://71.31.29.163 2>&1) =~ "Failed to connect" ]]; then (sudo ~/Downloads/HideMyAss/hma-vpn.sh -x; sleep 2; sudo ~/Downloads/HideMyAss/hma-vpn.sh -c ~/Downloads/HideMyAss/creds.txt -d "|us|"; date >> sourceIPs.txt;) fi; sleep 10; done;
