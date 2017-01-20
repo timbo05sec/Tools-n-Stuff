@@ -1,0 +1,14 @@
+[WFCLIENT]
+Version=2
+RemoveICAFile=No
+HttpBrowserAddress=IP_ADDRESS
+ConnectionBar=1
+
+[ApplicationServers]
+Desktop=
+
+[Desktop]
+Address=IP_ADDRESS
+InitialProgram=
+DesiredHRES=1366
+DesiredVRES=768
