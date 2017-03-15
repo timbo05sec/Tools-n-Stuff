@@ -1,0 +1,46 @@
+combine passwords from .pot with openldap file format below:
+for m in $(cat ssha+username.txt); do echo -n $m:; grep $(echo $m | grep -Eo '\{SSHA\}.*$') ../../hashcat/hashcat.pot | cut -d ':' -f 2; printf '\n'; done | less;
+
+combine openldap hashes with the dn/cn:
+for m in $(grep -Eo 'e1NTSEF9.*' 20161025_myldap-userPassword-dump.txt); do grep -m 1 -B 1 $m 20161025_myldap-userPassword-dump.txt | tr '\n' ':' | awk -F ":" '{ print $2":"$5 }' | sed "s/$m/$(echo $m | base64 -d | sed 's/\//\\\//g')/g"; done > ssha+username.txt;
+
+Output oclHashcat cracked LM hashes passwords on single line:
+../../oclHashcat-1.33/oclHashcat64.bin -m 3000 --show ./ad_hashes.txt | grep -iv aad3b435b51404ee | perl -l -ne '/(.+):\d*:[a-z0-9]{32}:[a-z0-9]{32}::::(.+)/ && print ":".$1.":".$2' | paste - - -d'\0' | awk -F ':' '{ print $2":"$3$5 }'
+
+Calculate mask for a given password:
+echo Wonderwall04 | sed 's/[a-z]/\?l/g; s/[0-9]/\?d/g; s/[^A-Za-z0-9\?]/?s/g; s/[A-Z]/?u/g'
+
+Rejoin the plain-text password from .pot to the username in the original file containing the hashes.
+cat ./oclHashcat.pot | awk -F ':' '{ cmd="grep " $1 " nis-des_hashes.txt | tr -d \"\\n\" && echo '"'"':" $2"'"'"'"; system(cmd) }' | cut -d':' -f1,8
+cat ./oclHashcat.pot | awk -F ':' '{ cmd="grep -i " $1 " ./lotus5.txt | tr -d \"\\n\" && echo '"'"':" $2"'"'"'"; system(cmd) }'
+
+Reformat patched radiusd hashes
+perl -ne '/(.*?):\$.*?\$(.*?)\$(.*)/; print "$1::::$3:$2\n";'
+
+convert from jrt NETNTLM to oclHashcat format
+cat file.txt | perl -ne '/(.*?):\$.*?\$(.*?)\$(.*)/; print "$1::::$3:$2\n";'
+
+Combinator One Liner:
+for m in $(cat ./500_passwords-Modified.txt); do awk '{ print $0" '$m'" }' ./500_passwords-Modified.txt >> 500-PasswordsOnly_Combined.txt; done;
+
+pull cracked passwords from .pot files (awk to take last column)
+find . -name *.pot -exec cat {} \; > temp.txt
+awk -F ':' ' { print $NF } ' ./temp.txt | sort -u >> dicts/crackedpwdlist.txt
+
+create length distribution:
+for m in $(../../oclHashcat-1.36/oclHashcat64.bin --username -m 1000 ./ntlm_hashes.txt --show | cut -d ':' -f 3 | sort -u); do echo $m | tr -d '\n' | wc -m >> lengths.txt; done;
+
+for m in {1..30}; do echo -n '# of '$m' char passwords: '; grep -cw $m ./lengths.txt; done;
+
+To find a list of names in a file and remove them:
+for m in $(awk -F ':' ' { print $1":"$7 } ' ./oclHashcat.pot | sort -u | cut -d ':' -f 1 | tr '[:upper:]' '[:lower:]'); do sed -i "/$m/d" netntlmv1.txt; done;
+
+format AIX security/passwd (shadow equivalent) files for oclHashcat
+grep -v 'password = \*' ./<passwd_file> | grep -v 'flags' | grep -B 2 password | tr -d '[:space:]' | sed -e 's/--/\n/g' -e 's/password=//g'
+
+format kerberoast from Empire format to useable:
+for m in $(grep -i samaccountname kpartridge_kerberoast | cut -d ':' -f 2); do export tempUname=$m; grep -A 35 $tempUname kpartridge_kerberoast | grep -i -A 32 hash | tr -d '\n' | sed 's/Hash/\nHash/g' | cut -d ':' --output-delimiter='$' -f 2- | sed "s/unknown/23\$\*$tempUname\$realm\$spn\*/g" | xargs; done >kpartridge_kerberoast_fixed.txt;
+
+use mimikatz kerberos tickets output to recreate .kirbi files; then loop through the files and build one file with hashes to crack
+for m in $(grep Saved kerb.full | cut -d ':' -f 2 | tr -d ' '); do awk "/`echo -n $m| tr -d '\n'`/,/Saved/{print}" kerb.full | grep -Ev 'Base64|Saved|====================|^\n$' | openssl enc -base64 -d -out $m; done
+for m in $(ls -1 *.kirbi); do ../JohnTheRipper/run/kirbi2john.py $m >> kerberos.txt; done;
