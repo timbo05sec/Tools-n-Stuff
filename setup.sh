@@ -1,5 +1,6 @@
 #!/bin/bash
 
+apt-get update
 apt-get install whois
 apt-get install telnet
 apt-get install dnsrecon
