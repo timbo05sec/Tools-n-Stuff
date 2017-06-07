@@ -9,6 +9,7 @@ pip install pyip
 git clone https://github.com/SpiderLabs/ikeforce.git /home/admin/downloads/ikeforce
 git clone https://bitbucket.org/LaNMaSteR53/recon-ng.git /home/admin/downloads/recon-ng
 git clone https://bitbucket.org/al14s/rawr.git /home/admin/downloads/rawr
+wget https://raw.githubusercontent.com/ap3r/get_vpn_groups/master/groupnames_shodan.txt -O Tools-n-Stuff/groupnames_shodan.txt
 
 chown -R admin:admin /home/admin/downloads
 
