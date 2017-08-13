@@ -5,6 +5,7 @@ apt-get install whois
 apt-get install telnet
 apt-get install dnsrecon
 apt-get install masscan
+apt-get install net-tools
 pip install pyip
 git clone https://github.com/SpiderLabs/ikeforce.git /home/admin/downloads/ikeforce
 git clone https://bitbucket.org/LaNMaSteR53/recon-ng.git /home/admin/downloads/recon-ng
