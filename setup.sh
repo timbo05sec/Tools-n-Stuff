@@ -10,6 +10,7 @@ git clone https://github.com/SpiderLabs/ikeforce.git /home/admin/downloads/ikefo
 git clone https://bitbucket.org/LaNMaSteR53/recon-ng.git /home/admin/downloads/recon-ng
 git clone https://bitbucket.org/al14s/rawr.git /home/admin/downloads/rawr
 wget https://raw.githubusercontent.com/ap3r/get_vpn_groups/master/groupnames_shodan.txt -O Tools-n-Stuff/groupnames_shodan.txt
+wget wget https://vpn.hidemyass.com/hma-vpn-linux-cli.zip -O Tools-n-Stuff/hma-vpn-linux-cli.zip
 
 chown -R admin:admin /home/admin/downloads
 
