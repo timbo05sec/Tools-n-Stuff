@@ -1,0 +1,25 @@
+####
+## The following configuration sets up sendmail as a relay, and limits the relaying to only the subnets
+## defined in the access.db file.
+## Source:  http://thegreyblog.blogspot.com/2009/11/index_22.html
+
+# apt-get install sendmail sendmail-cf sendmail-bin
+
+edit /etc/mail/sendmail.mc
+  ADD define(`confDOMAIN_NAME', `<domain_referenced_in_PTR_record_for_host>')dnl
+  MODIFY DAEMON_OPTIONS(`Family=inet,  Name=MTA-v4, Port=smtp, Addr=127.0.0.1')dnl
+    TO DAEMON_OPTIONS(`Family=inet,  Name=MTA-v4, Port=smtp, Addr=<IP_of_eth0>')dnl
+
+save sendmail.mc changes
+
+# m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
+
+edit /etc/mail/access
+  ADD Connect:<subnet>        RELAY
+  
+  For the <subnet> in the previous line, just enter the network portion of the address.  
+  I.E.  If you want to accept relays from the network 172.17.0.0/16, just enter 172.17
+  
+# makemap hash /etc/mail/access.db < /etc/mail/access
+# service sendmail stop
+# service sendmail start
