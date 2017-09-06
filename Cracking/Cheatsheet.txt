@@ -7,6 +7,9 @@ for m in $(grep -Eo 'e1NTSEF9.*' 20161025_myldap-userPassword-dump.txt); do grep
 Output oclHashcat cracked LM hashes passwords on single line:
 ../../oclHashcat-1.33/oclHashcat64.bin -m 3000 --show ./ad_hashes.txt | grep -iv aad3b435b51404ee | perl -l -ne '/(.+):\d*:[a-z0-9]{32}:[a-z0-9]{32}::::(.+)/ && print ":".$1.":".$2' | paste - - -d'\0' | awk -F ':' '{ print $2":"$3$5 }'
 
+Record cracking progress for password analysis projects:
+while true; do sleep 600; (echo -n $(date +%Y%m%d_%H%M):; ../../hashcat/hashcat64.bin --show --username -m 1000 <path_to_file_with_hashes> | grep -v '\$:' | tail -n +4 | wc -l) | tee -a <client-name>_status.txt; done
+
 Calculate mask for a given password:
 echo Wonderwall04 | sed 's/[a-z]/\?l/g; s/[0-9]/\?d/g; s/[^A-Za-z0-9\?]/?s/g; s/[A-Z]/?u/g'
 
