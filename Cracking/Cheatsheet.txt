@@ -44,6 +44,9 @@ grep -v 'password = \*' ./<passwd_file> | grep -v 'flags' | grep -B 2 password |
 format kerberoast from Empire format to useable:
 for m in $(grep -i samaccountname kpartridge_kerberoast | cut -d ':' -f 2); do export tempUname=$m; grep -A 35 $tempUname kpartridge_kerberoast | grep -i -A 32 hash | tr -d '\n' | sed 's/Hash/\nHash/g' | cut -d ':' --output-delimiter='$' -f 2- | sed "s/unknown/23\$\*$tempUname\$realm\$spn\*/g" | xargs; done >kpartridge_kerberoast_fixed.txt;
 
+format mimikatz / Empire lsa dump to hashcat/jtr
+grep -v 'RID  : ' agent.log | tr -d '\n' | sed -e 's/LM   : NTLM/::aad3b435b51404eeaad3b435b51404eeNTLM/g' -e 's/NTLM : User/:31d6cfe0d16ae931b73c59d7e0c089c0User/g' -e 's/LM   : /::/g' -e 's/NTLM : /:/g' -e 's/User : /:::\n/g'
+
 use mimikatz kerberos tickets output to recreate .kirbi files; then loop through the files and build one file with hashes to crack
 for m in $(grep Saved kerb.full | cut -d ':' -f 2 | tr -d ' '); do awk "/`echo -n $m| tr -d '\n'`/,/Saved/{print}" kerb.full | grep -Ev 'Base64|Saved|====================|^\n$' | openssl enc -base64 -d -out $m; done
 for m in $(ls -1 *.kirbi); do ../JohnTheRipper/run/kirbi2john.py $m | sed 's/\$krb5tgs\$\(.*\):\(.*\)/\$krb5tgs\$23\$\*\1\*\$\2/' >> kerberos.txt; done;
