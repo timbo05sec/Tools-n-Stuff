@@ -7,6 +7,9 @@ for m in $(grep -Eo 'e1NTSEF9.*' 20161025_myldap-userPassword-dump.txt); do grep
 convert hashcat HEX values to ascii and update file inline:
 sed -i -r 's/(\$HEX\[)(.+)(\])/echo \2 | xxd -p -r/eg' cracked_password_list.txt
 
+Combine LM and NT Hashes on one line and include cracked password on the same line:
+awk -F ':' ' { "grep "$4" <<Hashcat_.pot_or_.potfile>> | cut -d ':' -f2"|getline d; print $1":"$2":"$3":"$4":"d} ' <<AD_Dump_File>>
+
 Output oclHashcat cracked LM hashes passwords on single line:
 ../../oclHashcat-1.33/oclHashcat64.bin -m 3000 --show ./ad_hashes.txt | grep -iv aad3b435b51404ee | perl -l -ne '/(.+):\d*:[a-z0-9]{32}:[a-z0-9]{32}::::(.+)/ && print ":".$1.":".$2' | paste - - -d'\0' | awk -F ':' '{ print $2":"$3$5 }'
 
