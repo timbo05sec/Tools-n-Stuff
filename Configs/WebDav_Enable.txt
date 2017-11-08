@@ -1,0 +1,22 @@
+Based on: https://www.blackhillsinfosec.com/deploying-a-webdav-server/
+
+Add the following config to /etc/apache2/sites-available/000-default.conf just before the </VirtualHost> tag:
+Alias /webdav /var/www/webdav
+<Location /webdav>
+Options Indexes
+DAV On
+<LimitExcept GET HEAD OPTIONS PROPFIND>
+Deny from all
+</LimitExcept>
+Satisfy all
+</Location>
+
+Run:
+# a2enmod dav
+# a2enmod dav_fs
+# mkdir /var/www/webdav
+# chown www-data /var/www/webdav
+# systemctl restart apache2
+
+test connectivity from Windows by trying to access \\<SRVR_IP>\webdav in explorer.
+Be sure to make the files placed in /var/www/webdav/ owned by www-data:www-data
