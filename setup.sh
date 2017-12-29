@@ -1,18 +1,20 @@
 #!/bin/bash
 
 apt-get update
-apt-get install whois
-apt-get install telnet
-apt-get install dnsrecon
-apt-get install masscan
-apt-get install net-tools
-apt-get install theharvester
-pip install pyip
+apt-get install whois telnet dnsrecon masscan net-tools the harvester libssl-dev libxml2-dev libxslt-dev g++ python-pip
+pip install --upgrade pip
+pip install pyip wheel pyOpenSSL==17.5.0
+
 git clone https://github.com/SpiderLabs/ikeforce.git /home/admin/downloads/ikeforce
 git clone https://bitbucket.org/LaNMaSteR53/recon-ng.git /home/admin/downloads/recon-ng
 git clone https://bitbucket.org/al14s/rawr.git /home/admin/downloads/rawr
 wget https://raw.githubusercontent.com/ap3r/get_vpn_groups/master/groupnames_shodan.txt -O Tools-n-Stuff/groupnames_shodan.txt
 wget wget https://vpn.hidemyass.com/hma-vpn-linux-cli.zip -O Tools-n-Stuff/hma-vpn-linux-cli.zip
+
+git clone https://github.com/andresriancho/w3af.git /home/admin/downloads/w3af
+sed -Ei "s/('pyOpenSSL', ')(0\.15\.1)(')/\117.5.0\3/g" downloads/w3af/w3af/core/controllers/dependency_check/requirements.py
+/home/admin/downloads/w3af/w3af_console
+/tmp/w3af_dependency_install.sh
 
 chown -R admin:admin /home/admin/downloads
 
