@@ -3,7 +3,7 @@
 apt-get update
 apt-get install whois telnet dnsrecon masscan net-tools the harvester libssl-dev libxml2-dev libxslt-dev g++ python-pip
 pip install --upgrade pip
-pip install pyip wheel pyOpenSSL==17.5.0
+pip install wheel pyip pyOpenSSL==17.5.0
 
 git clone https://github.com/SpiderLabs/ikeforce.git /home/admin/downloads/ikeforce
 git clone https://bitbucket.org/LaNMaSteR53/recon-ng.git /home/admin/downloads/recon-ng
