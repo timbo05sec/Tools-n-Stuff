@@ -1,0 +1,7 @@
+Sub AddTableRows()
+    If Selection.Information(wdWithInTable) Then
+        Application.Dialogs(wdDialogTableInsertRow).Show
+    Else
+        MsgBox "Insertion point not in a table!"
+    End If
+End Sub
