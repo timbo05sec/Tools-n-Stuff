@@ -23,6 +23,9 @@ Rejoin the plain-text password from .pot to the username in the original file co
 cat ./oclHashcat.pot | awk -F ':' '{ cmd="grep " $1 " nis-des_hashes.txt | tr -d \"\\n\" && echo '"'"':" $2"'"'"'"; system(cmd) }' | cut -d':' -f1,8
 cat ./oclHashcat.pot | awk -F ':' '{ cmd="grep -i " $1 " ./lotus5.txt | tr -d \"\\n\" && echo '"'"':" $2"'"'"'"; system(cmd) }'
 
+Reformat for mscache2 (DCC2)
+echo hash | | perl -ne '/(.*?):(.*?):.*?:::/; print "\$DCC2\$10240#$1#$2\n";'
+
 Reformat patched radiusd hashes
 perl -ne '/(.*?):\$.*?\$(.*?)\$(.*)/; print "$1::::$3:$2\n";'
 
