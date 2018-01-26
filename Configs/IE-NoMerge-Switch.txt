@@ -1,0 +1,5 @@
+# The following command will launch IE with a new session each time without having to be in InPrivate mode and
+# does not carry over cookies and other temp files... So, multiple Office365 accounts can be logged into
+# without having to close down the browser each time a new account needs to be used.
+
+C:\Program Files\Internet Explorer\iexplore.exe -nomerge
