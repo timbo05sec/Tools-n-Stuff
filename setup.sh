@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt-get update
-apt-get install whois telnet dnsrecon masscan net-tools the harvester libssl-dev libxml2-dev libxslt-dev g++ python-pip
+apt-get install whois telnet dnsrecon masscan net-tools theharvester libssl-dev libxml2-dev libxslt-dev g++ python-pip
 pip install --upgrade pip
 pip install wheel pyip pyOpenSSL==17.5.0
 
