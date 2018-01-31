@@ -1,0 +1,2 @@
+Courtesy of Nate Drier:
+xmlstarlet sel -T -t -m "//state[@state='open']" -m "../service[@name='http']" -v @name -i "@tunnel='ssl'" -o 's' -b -o '://' -v "../../../address[@addrtype='ipv4']/@addr" -o ':' -v ../@portid -v "translate(@output,'$NEWLINE','&#x20;')" -b -n *.xml | sort -uV > urls.txt
