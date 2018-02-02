@@ -1,0 +1,2 @@
+issue: :set mouse-=a
+add to ~/.vimrc: set mouse-=a 
