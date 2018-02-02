@@ -1,0 +1,11 @@
+Replace the end of /usr/bin/google-chrome-stable:
+
+# Make sure that the profile directory specified in the environment, if any,
+# overrides the default.
+if [[ -n "$CHROME_USER_DATA_DIR" ]]; then
+  # Note: exec -a below is a bashism.
+  exec -a "$0" "$HERE/chrome"  \
+    --user-data-dir="$CHROME_USER_DATA_DIR" "-explicitly-allowed-ports=6000,6666,6665,6667,6668,6669,4045,3659,2049,995,993,636,601,587,563,556,540,532,531,530,526,515,513,512,465,389,179,143,139,135,123,119,117,115,113,111,110,109,104,103,102,101,95,87,79,77,53,43,42,37,25,23,22,21,20,19,17,15,13,11,9,7,1" "$@"
+else
+  exec -a "$0" "$HERE/chrome" "-explicitly-allowed-ports=6000,6666,6665,6667,6668,6669,4045,3659,2049,995,993,636,601,587,563,556,540,532,531,530,526,515,513,512,465,389,179,143,139,135,123,119,117,115,113,111,110,109,104,103,102,101,95,87,79,77,53,43,42,37,25,23,22,21,20,19,17,15,13,11,9,7,1" "$@"
+fi
