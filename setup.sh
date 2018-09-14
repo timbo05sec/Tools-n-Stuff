@@ -36,9 +36,9 @@ set BISHOPFOX data/grecce_bishopfox.txt' > /tmp/grecce.rc
 echo '# Added ":\D{%F-%T}~" to the end of the prompt
 # Eg. root@kali:~:2015-06-21-07:55:37~#
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]:\D{%F-%T}~\$'
+    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]:\D{%F-%T}~\$"
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w:\D{%F-%T}~\$'
+    PS1="${debian_chroot:+($debian_chroot)}\u@\h:\w:\D{%F-%T}~\$"
 fi' >> ~/.bashrc
 
 echo '# Logs all terminal output
