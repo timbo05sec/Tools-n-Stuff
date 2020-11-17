@@ -43,7 +43,7 @@ find . -name *.pot -exec cat {} \; > temp.txt
 awk -F ':' ' { print $NF } ' ./temp.txt | sort -u >> dicts/crackedpwdlist.txt
 
 Format cracked kerbs to just uname / hostname / password values:
-hashcat64.bin -m 13100 kerbs.txt --show | awk -F\$ '{ printf $4":"$5":"$6":"; for (i=8; i<=NF; i++) printf $i""FS; print "" }' | cut -d: -f 1,2,3,5
+hashcat64.bin -m 13100 kerbs.txt --show | awk -F\$ '{ printf $4":"$5":"$6":"; for (i=8; i<=NF; i++) printf $i""; print "" }' | cut -d: -f 1,2,3,5
 
 create length distribution:
 for m in $(../../oclHashcat-1.36/oclHashcat64.bin --username -m 1000 ./ntlm_hashes.txt --show | cut -d ':' -f 3 | sort -u); do echo $m | tr -d '\n' | wc -m >> lengths.txt; done;
