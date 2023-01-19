@@ -1,0 +1,8 @@
+sudo snap install core
+sudo snap refresh core
+sudo apt-get remove certbot
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /opt/letsencrypt/certbot-auto
+sudo snap alias certbot certbot-auto
+
+-- Be sure to setup A records for the domain in DNS first
